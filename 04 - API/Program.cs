@@ -1,4 +1,5 @@
 using _03___Infrastructure.DBContexts;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<EmployeeDBContext>(opt => { opt.UseSqlServer(configuration.GetConnectionString("DataContext")); });
-builder.Services.AddScoped<IDBContext, EmployeeDBContext>();
-
+builder.Services.AddDbContext<EmployeeDBContext>(p => p.UseSqlServer(configuration.GetConnectionString("DataContext")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
