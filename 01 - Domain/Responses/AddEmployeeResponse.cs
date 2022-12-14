@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _01___Domain.Responses
 {
-    internal class AddEmployeeResponse : Employee
+    public class AddEmployeeResponse : Employee
     {
     }
 }

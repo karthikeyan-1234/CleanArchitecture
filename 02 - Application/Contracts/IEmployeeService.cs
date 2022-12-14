@@ -1,4 +1,6 @@
-﻿using _02___Application.DTOs;
+﻿using _01___Domain.Requests;
+
+using _02___Application.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace _02___Application.Contracts
     {
         Task<EmployeeDTO> AddEmployee(EmployeeDTO newEmp);
         IEnumerable<EmployeeDTO> GetAllEmployees();
-        EmployeeDTO FindEmployeeById(int id);
+        EmployeeDTO? FindEmployeeById(int id);
         void DeleteEmployee(int id);
         EmployeeDTO UpdateEmployee(EmployeeDTO Emp);
     }

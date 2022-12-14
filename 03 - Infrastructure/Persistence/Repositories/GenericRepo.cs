@@ -31,19 +31,19 @@ namespace _03___Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public T Find(Func<T, bool> predicate)
+        public T? Find(Func<T, bool> predicate)
         {
-            throw new NotImplementedException();
+            return table.Where(predicate).FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await table.ToListAsync();
         }
 
-        public T GetByID(int id)
+        public T? GetByID(int id)
         {
-            throw new NotImplementedException();
+            return table.Find(id);
         }
 
         public async Task SaveChangesAsync()

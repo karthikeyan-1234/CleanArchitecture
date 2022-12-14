@@ -1,6 +1,12 @@
-using _03___Infrastructure.DBContexts;
+using _02___Application.Contracts;
+using _02___Application.DI;
+using _02___Application.Services;
 
+using _03___Infrastructure.DBContexts;
+using _03___Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -13,6 +19,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EmployeeDBContext>(p => p.UseSqlServer(configuration.GetConnectionString("DataContext")));
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepo<>));
+builder.Services.AddScoped<IDBContext, EmployeeDBContext>();
+builder.Services.AddApplicationCore();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

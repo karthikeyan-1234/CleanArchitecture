@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _01___Domain.Requests
 {
-    internal class AddEmployeeRequest : EmployeeBase
+    public class AddEmployeeRequest : EmployeeBase
     {
     }
 }

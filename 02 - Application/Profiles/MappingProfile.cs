@@ -1,4 +1,6 @@
 ﻿using _01___Domain.Models;
+using _01___Domain.Requests;
+
 using _02___Application.DTOs;
 using AutoMapper;
 using System;
@@ -15,6 +17,12 @@ namespace _02___Application.Profiles
         {
             CreateMap<EmployeeDTO, Employee>();
             CreateMap<Employee,EmployeeDTO>();
+
+            CreateMap<AddEmployeeRequest, Employee>();
+            CreateMap<Employee, AddEmployeeRequest>();
+
+            CreateMap<AddEmployeeRequest, EmployeeDTO>();
+            CreateMap<EmployeeDTO, AddEmployeeRequest>();
         }
     }
 }

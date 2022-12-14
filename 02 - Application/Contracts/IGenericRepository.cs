@@ -11,9 +11,9 @@ namespace _02___Application.Contracts
         Task<T> AddAsync(T entity);
         T Update(T entity);
         bool Delete(int id);
-        IEnumerable<T> GetAllAsync();
-        T GetByID(int id);
-        T Find(Func<T,bool> predicate);
+        Task<IEnumerable<T>> GetAllAsync();
+        T? GetByID(int id);
+        T? Find(Func<T,bool> predicate);
         Task SaveChangesAsync();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using _01___Domain.Models;
+using _01___Domain.Requests;
+
 using _02___Application.Contracts;
 using _02___Application.DTOs;
 using AutoMapper;
@@ -33,9 +35,14 @@ namespace _02___Application.Services
             throw new NotImplementedException();
         }
 
-        public EmployeeDTO FindEmployeeById(int id)
+        public EmployeeDTO? FindEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            var emp = empRepo.GetByID(id);
+
+            if (emp != null)
+                return mapper.Map<EmployeeDTO>(emp);
+
+            return null;
         }
 
         public IEnumerable<EmployeeDTO> GetAllEmployees()
