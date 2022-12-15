@@ -5,6 +5,8 @@ using _02___Application.Services;
 using _03___Infrastructure.DBContexts;
 using _03___Infrastructure.Persistence.Repositories;
 
+using MediatR;
+
 using Microsoft.EntityFrameworkCore;
 
 using Serilog;
@@ -34,7 +36,8 @@ builder.Services.AddDbContext<EmployeeDBContext>(p => p.UseSqlServer(configurati
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepo<>));
 builder.Services.AddScoped<IDBContext, EmployeeDBContext>();
-builder.Services.AddApplicationCore();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

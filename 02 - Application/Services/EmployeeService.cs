@@ -2,8 +2,11 @@
 using _01___Domain.Requests;
 
 using _02___Application.Contracts;
+using _02___Application.CQRS.Commands;
 using _02___Application.DTOs;
 using AutoMapper;
+
+using MediatR;
 
 using Serilog;
 using System;
@@ -17,20 +20,22 @@ namespace _02___Application.Services
     public class EmployeeService : IEmployeeService
     {
         IGenericRepository<Employee> empRepo;
+        IMediator mediator;
         IMapper mapper;
         ILogger logger;
 
-        public EmployeeService(IGenericRepository<Employee> empRepo,IMapper mapper,ILogger logger)
+        public EmployeeService(IGenericRepository<Employee> empRepo,IMapper mapper,ILogger logger,IMediator mediator)
         {
             this.empRepo = empRepo;
             this.mapper = mapper;
             this.logger = logger;
+            this.mediator = mediator;
         }
 
         public async Task<EmployeeDTO> AddEmployee(EmployeeDTO newEmp)
         {
-            var emp = await empRepo.AddAsync(mapper.Map<Employee>(newEmp));
-            await empRepo.SaveChangesAsync();
+            var emp = await mediator.Send(new CreateEmployeeCommand(newEmp));
+
             logger.Information("Employee {0} added",newEmp.name);
             return mapper.Map<EmployeeDTO>(emp);
         }
