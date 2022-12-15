@@ -12,7 +12,7 @@ namespace _02___Application.Contracts
     public interface IEmployeeService
     {
         Task<EmployeeDTO> AddEmployee(EmployeeDTO newEmp);
-        IEnumerable<EmployeeDTO> GetAllEmployees();
+        Task<IEnumerable<EmployeeDTO>> GetAllEmployees();
         EmployeeDTO? FindEmployeeById(int id);
         void DeleteEmployee(int id);
         EmployeeDTO UpdateEmployee(EmployeeDTO Emp);

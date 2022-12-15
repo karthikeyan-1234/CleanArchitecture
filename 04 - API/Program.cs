@@ -4,12 +4,24 @@ using _02___Application.Services;
 
 using _03___Infrastructure.DBContexts;
 using _03___Infrastructure.Persistence.Repositories;
+
 using Microsoft.EntityFrameworkCore;
+
+using Serilog;
 
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration)
+    .Enrich
+    .FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+builder.Services.AddSingleton(typeof(Serilog.ILogger), logger);
 
 // Add services to the container.
 
