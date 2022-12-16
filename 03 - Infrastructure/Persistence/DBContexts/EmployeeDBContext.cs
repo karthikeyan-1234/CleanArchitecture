@@ -1,4 +1,7 @@
 ﻿using _01___Domain.Models;
+
+using _02___Application.Contracts;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

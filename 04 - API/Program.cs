@@ -2,15 +2,13 @@ using _02___Application.Contracts;
 using _02___Application.Services;
 
 using _03___Infrastructure.DBContexts;
+using _03___Infrastructure.Persistence.Caching;
 using _03___Infrastructure.Persistence.Repositories;
 
 using MediatR;
-
 using Microsoft.EntityFrameworkCore;
-
 using Serilog;
 
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -21,9 +19,9 @@ var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configurat
     .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
-
+builder.Services.AddScoped<ICacheManager, CacheManager>();
 builder.Services.AddSingleton(typeof(Serilog.ILogger), logger);
-
+builder.Services.AddStackExchangeRedisCache(opt => { opt.Configuration = "localhost:6379"; });
 // Add services to the container.
 
 builder.Services.AddControllers();

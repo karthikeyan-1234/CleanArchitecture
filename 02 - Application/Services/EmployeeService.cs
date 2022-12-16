@@ -23,13 +23,15 @@ namespace _02___Application.Services
         IMediator mediator;
         IMapper mapper;
         ILogger logger;
+        ICacheManager cacheManager;
 
-        public EmployeeService(IGenericRepository<Employee> empRepo,IMapper mapper,ILogger logger,IMediator mediator)
+        public EmployeeService(IGenericRepository<Employee> empRepo,IMapper mapper,ILogger logger,IMediator mediator,ICacheManager cacheManager)
         {
             this.empRepo = empRepo;
             this.mapper = mapper;
             this.logger = logger;
             this.mediator = mediator;
+            this.cacheManager = cacheManager;
         }
 
         public async Task<EmployeeDTO> AddEmployee(EmployeeDTO newEmp)
@@ -57,7 +59,9 @@ namespace _02___Application.Services
 
         public async Task<IEnumerable<EmployeeDTO>> GetAllEmployees()
         {
-            return mapper.Map<IEnumerable<EmployeeDTO>>(await empRepo.GetAllAsync());
+            var res = await empRepo.GetAllAsync();
+            await cacheManager.TrySetAsync("getall", res);
+            return mapper.Map<IEnumerable<EmployeeDTO>>(res);
         }
 
         public EmployeeDTO UpdateEmployee(EmployeeDTO Emp)

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace _03___Infrastructure.DBContexts
+namespace _02___Application.Contracts
 {
     public interface IDBContext
     {
